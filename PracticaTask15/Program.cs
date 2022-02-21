@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 namespace PracticaTask15
 {
     internal class Program
@@ -65,10 +66,10 @@ namespace PracticaTask15
         }
         static List<String> Spliting(String text) {
             List<String> subStrings = new List<String>();
-            while(text != "")
-            {
-                subStrings.Add(text.Substring(text.IndexOf('(') +1, text.IndexOf('(') + text.IndexOf(')') - 1));
-                text = text.Remove(text.IndexOf('('), text.IndexOf('(') + text.IndexOf(')') + 1);
+            Regex r = new Regex(@"\B(\S*)\b");
+            MatchCollection match = r.Matches(text);
+            foreach (Match m in match) {
+                subStrings.Add(m.Value.Remove(0, 1));
             }
             return subStrings;
         }
